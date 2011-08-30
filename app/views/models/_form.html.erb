@@ -1,0 +1,19 @@
+<%= form_for(@model) do |f| %>
+  <% if @model.errors.any? %>
+    <% @model.errors.full_messages.each do |msg| %>
+    <script>
+      $(function(){
+        $.popup("<%= msg %>", 0, 'jm_message_error');
+      });
+    </script>
+    <% end %>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="actions">
+    <%= f.submit t(:submit) %>
+  </div>
+<% end %>

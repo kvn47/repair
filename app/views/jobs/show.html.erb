@@ -1,0 +1,45 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Model:</b>
+  <%= @job.model_id %>
+</p>
+
+<p>
+  <b>Status:</b>
+  <%= @job.status %>
+</p>
+
+<p>
+  <b>Comment:</b>
+  <%= @job.comment %>
+</p>
+
+<p>
+  <b>Price:</b>
+  <%= @job.price %>
+</p>
+
+<p>
+  <b>Master:</b>
+  <%= @job.master_id %>
+</p>
+
+<p>
+  <b>Income date:</b>
+  <%= @job.income_date %>
+</p>
+
+<p>
+  <b>Поставщик:</b>
+  <%= @job.supplier %>
+</p>
+
+<p>
+  <b>Guarantee:</b>
+  <%= @job.guarantee %>
+</p>
+
+
+<%= link_to 'Edit', edit_job_path(@job) %> |
+<%= link_to 'Back', jobs_path %>
