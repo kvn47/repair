@@ -88,6 +88,7 @@ class JobsController < ApplicationController
     end
   end
   
+  
   def save_statuses
     params.each do |param|
       if param[0][0..2] == 'jb_'
@@ -97,14 +98,14 @@ class JobsController < ApplicationController
         @job.update_attribute(:status, jb_stat)
       end
     end
-    redirect_to root_path
-#    respond_to do |format|
-#      format.html do
-#        render :update do |page|
-#          page.redirect_to :action => 'index'
-#        end
-#      end
-#    end
+#    redirect_to root_path
+    respond_to do |format|
+      format.html do
+        render :update do |page|
+          page.redirect_to :action => 'edit'
+        end
+      end
+    end
   end
 
   # DELETE /jobs/1

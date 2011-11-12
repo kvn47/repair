@@ -26,7 +26,7 @@ admin_email: root@localhost
 # web_tools_password: sekret
 
 # REQUIRED: The timezone the server should be in
-timezone: US/Eastern
+timezone: Vladivostok#US/Eastern
 
 # REQUIRED: the domain all the instances should be associated with
 #

@@ -1,13 +1,15 @@
 <table>
   <tr>
-    <th><%= t :user_name %></th>
+    <th class="name_col"><%= t :user_name %></th>
+    <th class="edit_col"></th>
+    <th class="delete_col"></th>
   </tr>
 
 <% @users.each do |user| %>
   <tr>
-    <td><%= user.username %></td>
-    <td><%= link_to(image_tag('edit.png'), edit_user_path(user)) %></td>
-    <td><%= link_to(image_tag('delete.png'), user, :confirm => t(:confirmation), :method => :delete) %></td>
+    <td class="name_col"><%= user.username %></td>
+    <td class="edit_col"><%= link_to(image_tag('edit.png'), edit_user_path(user)) %></td>
+    <td class="delete_col"><%= link_to(image_tag('delete.png'), user, :confirm => t(:confirmation), :method => :delete) %></td>
   </tr>
 <% end %>
 </table>

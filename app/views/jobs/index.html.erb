@@ -3,10 +3,31 @@
       var statuses = {};
 		$(document).ready(function(){
 			
+      jQuery.fn.dataTableExt.oSort['ru_date-asc']  = function(a,b) {
+        var ukDatea = a.split('.');
+        var ukDateb = b.split('.');
+
+        var x = (ukDatea[2] + ukDatea[1] + ukDatea[0]) * 1;
+        var y = (ukDateb[2] + ukDateb[1] + ukDateb[0]) * 1;
+
+        return ((x < y) ? -1 : ((x > y) ?  1 : 0));
+      };
+
+      jQuery.fn.dataTableExt.oSort['ru_date-desc'] = function(a,b) {
+        var ukDatea = a.split('.');
+        var ukDateb = b.split('.');
+
+        var x = (ukDatea[2] + ukDatea[1] + ukDatea[0]) * 1;
+        var y = (ukDateb[2] + ukDateb[1] + ukDateb[0]) * 1;
+
+        return ((x < y) ? 1 : ((x > y) ?  -1 : 0));
+      };
+      
       $('#jobs_table').dataTable( {
         "oLanguage": {
           "sUrl": "dataTables.russian.txt"
         },
+        "iDisplayLength": 25,
 				"sPaginationType": "full_numbers",
 				"bJQueryUI": false,
 				"bProcessing": true,
@@ -20,11 +41,27 @@
 					{ "asSorting": ["asc", "desc"] },
 					{ "asSorting": ["asc", "desc"] },
 					{ "asSorting": ["asc", "desc"] },
-					{ "asSorting": ["asc", "desc"] },
+					{ "asSorting": ["asc", "desc"], "sType": "ru_date" },
 					{ "asSorting": ["asc", "desc"] },
 					null,
 					null
-				]
+				],
+				"fnFooterCallback": function( nRow, aaData, iStart, iEnd, aiDisplay) {
+					var is_admin = <%= current_user.is_admin? %>
+          var user_name = "<%= current_user.username %>"
+          var totalSum = 0;
+          
+            for(var i=0; i<aiDisplay.length; i++){
+              if(is_admin || (user_name == aaData[aiDisplay[i]][7])) {
+                totalSum += aaData[aiDisplay[i]][6]*1;
+              }
+            }
+
+            var nCells = nRow.getElementsByTagName('th');
+            nCells[6].innerHTML = parseFloat(totalSum) + ' (' + parseInt(aiDisplay.length) + ')';
+//          }
+				}
+				
 			}).columnFilter( {
 				aoColumns: [
 					null,
@@ -63,8 +100,7 @@
     
     function save_statuses(){
       $.post("/save_jobs_statuses",
-             statuses,
-             location.reload()
+             statuses
             );
       }
     
@@ -72,9 +108,9 @@
 	
   <div id="new_job"><%= link_to t(:add_job), new_job_path, :class => "green" %></div>
   
-  <div id="update_statuses"><%= link_to_function t(:save_statuses), "save_statuses()" %></div>
+  <div id="update_statuses"><%= button_to_function t(:save_statuses), "save_statuses()" %></div>
 	
-	<table id="jobs_table" cellpadding="0" cellspacing="0" border="0" class="display" id="job_table">
+	<table id="jobs_table" cellpadding="0" cellspacing="0" border="0" class="display">
 		<thead>
 		  <tr>
 	        <th><%= t :num_col %></th>
@@ -122,7 +158,7 @@
 			    <td class="supplier_col"><%= job.supplier %></td>
 			    <td class="price_col"><%= job.price %></td>
 			    <td class="master_col"><%= job.master.username %></td>
-			    <td class="date_col"><%= job.income_date.strftime("%d.%m.%y") %></td>
+			    <td class="date_col"><%= l(job.income_date, :format => :date) %></td>
 			    <td class="guarantee_col">
 			    	<%= (job.guarantee)? image_tag('/images/green_check.png') : image_tag('/images/red_x.png') %>
 			   		<span class="guarantee_val"><%= (job.guarantee)? '✓' : '✕' %></span>

@@ -354,7 +354,6 @@ tr.odd {
   margin:15px;
   display: inline-block;
   float:left;
-  width: 300px;
 }
 
 #new_job a {
@@ -380,7 +379,34 @@ tr.odd {
    #new_job  @-moz-document url-prefix() { a:before { margin-left: -20px; } }
    #new_job  a:active:before, a:active:after { display: none; }
 
+#update_statuses {
+  margin: 8px;
+  display: inline-block;
+  float:left;
+}
 
+#update_statuses input {
+    font-family: "Helvetica", Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 13px;
+	color: black;
+    text-decoration: none;
+    border-radius: 3px;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+    padding: 8px 15px;
+}
+   /*#update_statuses  input:before, input:after {
+         height: 29px;
+         width: 1px;
+         content: '';
+         position: absolute;
+         margin-top: -5px;
+     }*/
+/*   #update_statuses  input:before { margin-right: 19px; }*/
+/*   #update_statuses  input:after { margin-left: 19px; }*/
+/*   #update_statuses  @-moz-document url-prefix() { input:before { margin-left: -20px; } }*/
+/*   #update_statuses  input:active:before, input:active:after { display: none; }*/
 
 
 .status_col {
@@ -564,4 +590,35 @@ select {
 .paginate_img
 {
   margin-bottom: -4px;
+}
+
+#login_fields
+{
+	height: 50px;
+	width: 150px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#session_username, #session_password
+{
+	width: 150px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+html
+{
+	height: auto;
+}
+
+#models_table .name_col
+{
+	width: auto;
+}
+
+.edit_col, .delete_col
+{
+	width: 25px;
+	text-align: center;
 }

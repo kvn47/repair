@@ -1,15 +1,15 @@
-<table>
+<table id="models_table">
   <tr>
-    <th><%= t :model_name %></th>
-	<th> </th>
-	<th> </th>
+    <th class="name_col"><%= t :model_name %></th>
+		<th class="edit_col"> </th>
+		<th class="delete_col"> </th>
   </tr>
   
 <% @models.each do |model| %>
   <tr>
-    <td><%= model.name %></td>
-    <td><%= link_to(image_tag('edit.png'), edit_model_path(model)) %></td>
-    <td><%= link_to(image_tag('delete.png'), model, :confirm => t(:confirmation), 
+    <td class="name_col"><%= link_to model.name, edit_model_path(model) %></td>
+    <td class="edit_col"><%= link_to(image_tag('edit.png'), edit_model_path(model)) %></td>
+    <td class="delete_col"><%= link_to(image_tag('delete.png'), model, :confirm => t(:confirmation), 
         :method => "delete") %></td>
   </tr>
 <% end %>
