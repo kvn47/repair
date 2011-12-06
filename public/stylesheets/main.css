@@ -600,7 +600,7 @@ select {
 	margin-right: auto;
 }
 
-#session_username, #session_password
+#session_username, #session_password, #user_password, #user_password_confirmation, #user_username
 {
 	width: 150px;
 	margin-left: auto;
