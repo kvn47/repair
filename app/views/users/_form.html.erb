@@ -13,8 +13,10 @@
   <p><%= f.label :username %><br />
   <%= f.text_field :username %></p>
   
-  <p><%= f.label :admin %>
-  <%= f.check_box :admin %></p>
+  <%- if signed_in_as_admin? or !User.any? %>
+    <p><%= f.label :admin %>
+    <%= f.check_box :admin %></p>
+  <% end %>
   
   <p><%= f.label :password %><br />
   <%= f.password_field :password %></p>

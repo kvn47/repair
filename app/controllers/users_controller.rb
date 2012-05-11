@@ -48,6 +48,8 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     params[:user].delete(:password) if params[:user][:password].blank?
     params[:user].delete(:password_confirmation) if params[:user][:password].blank? and params[:user][:password_confirmation].blank?
+    params[:user].delete(:admin) unless signed_in_as_admin?
+    params[:user][:admin] = '1' unless User.any?
     if @user.update_attributes(params[:user])
       flash[:notice] = t(:user_updated)
       redirect_to users_path

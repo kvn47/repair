@@ -39,6 +39,10 @@ module SessionsHelper
     end
   end
   
+  def signed_in_as_admin?
+    signed_in? and current_user.is_admin?
+  end
+  
   def deny_access
     redirect_to signin_path
   end
