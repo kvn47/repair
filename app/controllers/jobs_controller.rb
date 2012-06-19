@@ -1,14 +1,16 @@
 class JobsController < ApplicationController
   before_filter :authenticate
-  before_filter :admin_user, :only => [:destroy]
+  before_filter :admin_user, only: [:destroy]
+  helper_method :sort_column, :sort_direction
   
   def index
     @title = t :jobs_index_title
     
-    @jobs = Job.all
+    @jobs = Job.filter(params).order(sort_column + ' ' + sort_direction).page(params[:page]).per(params[:paginate_per])
     
     respond_to do |format|
       format.html # index.html.erb
+      format.js
       format.xml  { render :xml => @jobs }
     end
   end
@@ -90,7 +92,7 @@ class JobsController < ApplicationController
     respond_to do |format|
       format.html do
         render :update do |page|
-          page.redirect_to :action => 'edit'
+          page.redirect_to :action => 'index'
         end
       end
     end
@@ -105,4 +107,15 @@ class JobsController < ApplicationController
       format.xml  { head :ok }
     end
   end
+  
+  private
+    
+  def sort_column
+    Job.column_names.include?(params[:sort]) ? params[:sort] : "income_date"
+  end
+  
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
+  end
+  
 end

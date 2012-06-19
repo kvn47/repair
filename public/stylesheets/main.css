@@ -622,3 +622,22 @@ html
 	width: 25px;
 	text-align: center;
 }
+
+.jobs_pagination {
+  float: right;
+  display: inline-block;
+}
+
+.jobs_filter {
+  float: right;
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.jobs_right_panel {
+  padding-top: 15px;
+}
+
+.jobs_right_panel .action {
+  float: right;
+}

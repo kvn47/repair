@@ -1,6 +1,22 @@
 class Job < ActiveRecord::Base
   belongs_to :model
-  belongs_to :master, :class_name => 'User', :foreign_key => 'master_id'
+  belongs_to :master, class_name: 'User', foreign_key: 'master_id'
   attr_accessor :model_name
-  validates :model_id, :master_id, :serial, :presence => true
+  validates :model_id, :master_id, :serial, presence: true
+  scope :by_creation, order('created_at desc')
+  
+  def self.filter params
+    status = (params[:filter_status].blank?) ? nil : params[:filter_status] == 'true'
+    guarantee = (params[:filter_guarantee].blank?) ? nil : params[:filter_guarantee] == 'true'
+    master = (params[:filter_master].blank?) ? nil : User.find(params[:filter_master])
+    column = (params[:filter_text_column].blank?) ? nil : params[:filter_text_column]
+    text = (params[:filter_text].blank?) ? nil : params[:filter_text]
+    jobs = Job.scoped
+    jobs = jobs.where(status: status) unless status.nil?
+    jobs = jobs.where(guarantee: guarantee) unless guarantee.nil?
+    jobs = jobs.where(master_id: master) unless master.nil?
+    jobs = jobs.where("#{column} LIKE ?", "%#{text}%") if column and text
+    jobs
+  end
+  
 end

@@ -1,0 +1,22 @@
+#new_job= link_to t(:add_job), new_job_path, class: "green"
+#update_statuses= button_to_function t(:save_statuses), "save_statuses()"
+
+.jobs_right_panel
+  = form_tag jobs_path, method: 'get', remote: false do
+    .action= submit_tag 'V'
+    
+    .jobs_pagination
+      = label_tag 'paginate_per', "#{t(:show_records)}: "
+      = select_tag 'paginate_per', options_for_select([[25, 25], [50, 50], [100, 100]], params[:paginate_per])
+    
+    .jobs_filter
+      = select_tag 'filter_status', options_for_select([[t(:status_col), nil], ['✓', true], ['✕', false]], params[:filter_status])
+      = select_tag 'filter_guarantee', options_for_select([[t(:guarantee_col), nil], ['✓', true], ['✕', false]], params[:filter_guarantee])
+      = select_tag 'filter_master', options_for_select([[t(:master_col), nil]] + User.all.map{|user| [user.username, user.id]}, params[:filter_master])
+      = select_tag 'filter_text_column', options_for_select([[t(:supplier_col), 'supplier'], [t(:repair_col), 'repair'], [t(:serial_col), 'serial']], params[:filter_text_column])
+      -# = select_tag 'filter_text_column', options_for_select([[t(:model_col), 'model'], [t(:serial_col), 'serial'], [t(:repair_col), 'repair'], [t(:supplier_col), 'supplier'], [t(:master_col), 'master']], params[:filter_text_column])
+      = text_field_tag 'filter_text', params[:filter_text]
+
+#resource_table= render 'table'
+
+= javascript_include_tag 'jobs'

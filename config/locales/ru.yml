@@ -376,7 +376,14 @@ ru:
 
       full_messages:
         format: "%{attribute} %{message}"
-
+  
+  views:
+    pagination:
+      first: "&laquo; Начало"
+      last: "Конец &raquo;"
+      previous: "&lsaquo; Назад"
+      next: "Далее &rsaquo;"
+      truncate: "..."
 
   support:
     select:
@@ -417,6 +424,7 @@ ru:
         guarantee: Гарантия
      
   app_title: Ремнт
+  empty: Пусто
   num_col: "№"
   status_col:  "Статус"
   model_col: "Модель"
@@ -458,6 +466,7 @@ ru:
   job_created: Работа создана.
   job_updated: Работа изменена.
   job_deleted: Работа удалена.
+  show_records: Показывать записей
   sign_in_title: Вход
   sign_in: Войти
   username: Имя пользователя

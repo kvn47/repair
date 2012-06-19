@@ -1,0 +1,11 @@
+%header
+  %nav.navigation
+    - if signed_in?
+      %h2= " #{@title}"
+      .white= link_to t(:main_page), root_path
+      .white= link_to t(:models_page), models_path
+
+      - if current_user.is_admin?
+        .white= link_to t(:users_page), users_path
+      .white= link_to "#{t(:profile_page)} [#{current_user.username}]", edit_user_path(current_user)
+      .white= link_to("#{t(:signout)}", signout_path, action: :delete)

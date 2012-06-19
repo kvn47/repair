@@ -1,0 +1,59 @@
+= hidden_field_tag :sort, params[:sort]
+= hidden_field_tag :direction, params[:direction]
+- if @jobs.any?
+  = paginate @jobs, remote: true
+%table#jobs_table.display{cellpadding: 0, cellspacing: 0, border: 0}
+  %thead
+    %tr
+      %th= sortable 'id', t(:num_col)
+      %th= sortable 'status', t(:status_col)
+      %th= t(:model_col)
+      %th= t :serial_col
+      %th= t :repair_col
+      %th= sortable 'supplier', t(:supplier_col)
+      %th= sortable 'price', t(:price_col)
+      %th= sortable 'master', t(:master_col)
+      %th= sortable 'income_date', t(:date_col)
+      %th= sortable 'guarantee', t(:guarantee_col)
+      %th
+      %th
+  %tfoot
+    %tr
+      %th
+      %th.status_filter
+        -# = select_tag 'filter_status', options_for_select([[t(:status_col), nil], ['✓', true], ['✕', false]], params[:filter_status])
+      %th.model_filter
+        -# = text_field_tag 'filter_model', params[:filter_model]
+      %th.serial_num_filter
+      %th.repair_filter
+      %th.supplier_filter
+      %th.total_price
+        - if current_user.is_admin?
+          = "#{@jobs.sum(:price)} (#{@jobs.count})"
+        - else
+          = "#{@jobs.where(master_id: current_user.id).sum(:price)} (#{@jobs.where(master_id: current_user.id).count})"
+      %th.master_filter
+      %th.date_filter
+      %th.guarantee_filter
+      %th
+      %th
+  %tbody
+    - @jobs.each do |job|
+      %tr#jobs_table_rows
+        %td.job_id_col= job.id
+        %td.status_col
+          = (job.status)? image_tag('/images/green_check.png', class: 'status_img', alt: '✓') : image_tag('/images/red_x.png', class: 'status_img', alt: '✕')
+          %span.status_val{class: "status_val_#{job.id}"}= (job.status)? '✓' : '✕'
+        %td.model_col= job.model.name
+        %td.serial_col= job.serial
+        %td.comment_col= job.comment
+        %td.supplier_col= job.supplier
+        %td.price_col= job.price
+        %td.master_col= job.master.username
+        %td.date_col= l(job.income_date, format: :date)
+        %td.guarantee_col
+          = (job.guarantee)? image_tag('/images/green_check.png') : image_tag('/images/red_x.png')
+          %span.guarantee_val= (job.guarantee)? '✓' : '✕'
+        %td= link_to image_tag('edit.png'), edit_job_path(job)
+        -# if current_user.is_admin?
+        %td= link_to image_tag('delete.png'), job, confirm: t(:confirmation), method: :delete
