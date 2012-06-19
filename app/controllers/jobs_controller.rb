@@ -2,9 +2,6 @@ class JobsController < ApplicationController
   before_filter :authenticate
   before_filter :admin_user, :only => [:destroy]
   
-  # GET /jobs
-  # GET /jobs.xml
-  
   def index
     @title = t :jobs_index_title
     
@@ -16,8 +13,6 @@ class JobsController < ApplicationController
     end
   end
   
-  # GET /jobs/1
-  # GET /jobs/1.xml
   def show
     @job = Job.find(params[:id])
 
@@ -27,8 +22,6 @@ class JobsController < ApplicationController
     end
   end
 
-  # GET /jobs/new
-  # GET /jobs/new.xml
   def new
     @title = t :new_job
     @job = Job.new
@@ -40,14 +33,11 @@ class JobsController < ApplicationController
     end
   end
 
-  # GET /jobs/1/edit
   def edit
     @title = t :editing_job
     @job = Job.find(params[:id])
   end
 
-  # POST /jobs
-  # POST /jobs.xml
   def create
     if params[:job] != nil
       if params[:job][:model_name] != ""
@@ -68,8 +58,6 @@ class JobsController < ApplicationController
     end
   end
   
-  # PUT /jobs/1
-  # PUT /jobs/1.xml
   def update
     @job = Job.find(params[:id])
     if params[:job][:model_name] != ""
@@ -108,8 +96,6 @@ class JobsController < ApplicationController
     end
   end
 
-  # DELETE /jobs/1
-  # DELETE /jobs/1.xml
   def destroy
     @job = Job.find(params[:id])
     @job.destroy
