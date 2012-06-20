@@ -424,7 +424,9 @@ ru:
         guarantee: Гарантия
      
   app_title: Ремнт
+  date_l: Дата
   empty: Пусто
+  filter: Фильтровать
   num_col: "№"
   status_col:  "Статус"
   model_col: "Модель"
@@ -442,6 +444,7 @@ ru:
   signout: Выход
   add_job: Добавить работу
   jobs_index_title: Список работ
+  jobs_total: "Всего работ: %{count} на сумму %{sum}"
   editing_job: Редактирование работы
   new_job: Новая работа
   confirmation: Точно?

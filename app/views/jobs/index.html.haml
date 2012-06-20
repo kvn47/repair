@@ -3,20 +3,24 @@
 
 .jobs_right_panel
   = form_tag jobs_path, method: 'get', remote: false do
-    .action= submit_tag 'V'
-    
-    .jobs_pagination
+    .action= submit_tag t(:filter)
+  
+    -#
+      .jobs_pagination
       = label_tag 'paginate_per', "#{t(:show_records)}: "
-      = select_tag 'paginate_per', options_for_select([[25, 25], [50, 50], [100, 100]], params[:paginate_per])
+      = select_tag 'paginate_per', options_for_select([[100, 100], [50, 50], [25, 25]], params[:paginate_per])
     
     .jobs_filter
+      = label_tag 'filter_date_from', "#{t(:date_l)}: "
+      = text_field_tag 'filter_date_from', params[:filter_date_from], class: 'date_filter'
+      = '-'
+      = text_field_tag 'filter_date_to', params[:filter_date_to], class: 'date_filter'
       = select_tag 'filter_status', options_for_select([[t(:status_col), nil], ['✓', true], ['✕', false]], params[:filter_status])
       = select_tag 'filter_guarantee', options_for_select([[t(:guarantee_col), nil], ['✓', true], ['✕', false]], params[:filter_guarantee])
       = select_tag 'filter_master', options_for_select([[t(:master_col), nil]] + User.all.map{|user| [user.username, user.id]}, params[:filter_master])
-      = select_tag 'filter_text_column', options_for_select([[t(:supplier_col), 'supplier'], [t(:repair_col), 'repair'], [t(:serial_col), 'serial']], params[:filter_text_column])
-      -# = select_tag 'filter_text_column', options_for_select([[t(:model_col), 'model'], [t(:serial_col), 'serial'], [t(:repair_col), 'repair'], [t(:supplier_col), 'supplier'], [t(:master_col), 'master']], params[:filter_text_column])
+      = select_tag 'filter_text_column', options_for_select([[t(:serial_col), 'serial'], [t(:supplier_col), 'supplier'], [t(:repair_col), 'repair']], params[:filter_text_column])
       = text_field_tag 'filter_text', params[:filter_text]
 
 #resource_table= render 'table'
-
+.jobs_total= t :jobs_total, count: number_with_delimiter(@jobs_total_count), sum: number_with_delimiter(@jobs_total_sum)
 = javascript_include_tag 'jobs'

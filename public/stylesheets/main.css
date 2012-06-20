@@ -640,4 +640,20 @@ html
 
 .jobs_right_panel .action {
   float: right;
+  padding-top: 3px;
+  margin: 0 10px 0 5px; 
+}
+
+#filter_text_column {
+  margin: 0 -3px 0 5px;
+}
+
+.date_filter {
+  width: 70px;
+}
+
+.jobs_total {
+  font-style: bold;
+  font-size: 18px;
+  text-align: center;
 }

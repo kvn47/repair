@@ -3,13 +3,14 @@
 %head
   %title= t :app_title
   = stylesheet_link_tag '/stylesheets/main.css'
-  = javascript_include_tag :defaults
-  -# = javascript_include_tag '/javascripts/jquery.min.js'
-  -# = javascript_include_tag '/javascripts/jquery-ui-1.8.14.custom.min.js'
-  -# = javascript_include_tag '/javascripts/jquery_ujs.js'
+  = stylesheet_link_tag '/stylesheets/smoothness/jquery-ui-1.8.21.custom.css'
+  -# = javascript_include_tag :defaults
+  = javascript_include_tag '/javascripts/application.js'
+  = javascript_include_tag '/javascripts/jquery-1.7.2.min.js'
+  = javascript_include_tag '/javascripts/jquery_ujs.js'
+  = javascript_include_tag '/javascripts/jquery-ui-1.8.21.custom.min.js'
+  = javascript_include_tag '/javascripts/jquery.ui.datepicker-ru.js'
   = javascript_include_tag '/javascripts/flash_popup.js'
-  -# = javascript_include_tag '/javascripts/jquery.dataTables.js'
-  -# = javascript_include_tag '/javascripts/jquery.dataTables.columnFilter.js'
   = csrf_meta_tag
   
 %body
@@ -19,7 +20,7 @@
     %section.round
       = yield
     = debug params if Rails.env.development?
-
+  
   :javascript
     $(function(){
       if("#{notice}" != ''){

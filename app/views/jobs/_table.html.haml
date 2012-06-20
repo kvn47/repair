@@ -1,7 +1,6 @@
 = hidden_field_tag :sort, params[:sort]
 = hidden_field_tag :direction, params[:direction]
-- if @jobs.any?
-  = paginate @jobs, remote: true
+
 %table#jobs_table.display{cellpadding: 0, cellspacing: 0, border: 0}
   %thead
     %tr
@@ -21,17 +20,12 @@
     %tr
       %th
       %th.status_filter
-        -# = select_tag 'filter_status', options_for_select([[t(:status_col), nil], ['✓', true], ['✕', false]], params[:filter_status])
       %th.model_filter
-        -# = text_field_tag 'filter_model', params[:filter_model]
       %th.serial_num_filter
       %th.repair_filter
       %th.supplier_filter
       %th.total_price
-        - if current_user.is_admin?
-          = "#{@jobs.sum(:price)} (#{@jobs.count})"
-        - else
-          = "#{@jobs.where(master_id: current_user.id).sum(:price)} (#{@jobs.where(master_id: current_user.id).count})"
+        = "#{number_with_delimiter @jobs_sum} (#{number_with_delimiter @jobs_count})"
       %th.master_filter
       %th.date_filter
       %th.guarantee_filter
@@ -55,5 +49,7 @@
           = (job.guarantee)? image_tag('/images/green_check.png') : image_tag('/images/red_x.png')
           %span.guarantee_val= (job.guarantee)? '✓' : '✕'
         %td= link_to image_tag('edit.png'), edit_job_path(job)
-        -# if current_user.is_admin?
         %td= link_to image_tag('delete.png'), job, confirm: t(:confirmation), method: :delete
+
+- if @jobs.any?
+  = paginate @jobs, remote: false

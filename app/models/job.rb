@@ -6,12 +6,15 @@ class Job < ActiveRecord::Base
   scope :by_creation, order('created_at desc')
   
   def self.filter params
+    date_from = (params[:filter_date_from].blank?) ? nil : params[:filter_date_from].to_datetime.beginning_of_day
+    date_to = (params[:filter_date_to].blank?) ? nil : params[:filter_date_to].to_datetime.end_of_day
     status = (params[:filter_status].blank?) ? nil : params[:filter_status] == 'true'
     guarantee = (params[:filter_guarantee].blank?) ? nil : params[:filter_guarantee] == 'true'
     master = (params[:filter_master].blank?) ? nil : User.find(params[:filter_master])
     column = (params[:filter_text_column].blank?) ? nil : params[:filter_text_column]
     text = (params[:filter_text].blank?) ? nil : params[:filter_text]
     jobs = Job.scoped
+    jobs = jobs.where(income_date: date_from..date_to) if date_from and date_to
     jobs = jobs.where(status: status) unless status.nil?
     jobs = jobs.where(guarantee: guarantee) unless guarantee.nil?
     jobs = jobs.where(master_id: master) unless master.nil?
