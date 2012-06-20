@@ -20,6 +20,8 @@ set :scm, "git"
 set :repository, "git@github.com:kvn47/repair.git"
 set :branch, 'master'
 ssh_options[:forward_agent] = true
+# set :user, "deployer"  # The server's user for deploys
+# set :scm_passphrase, "p@ssw0rd"  # The deploy user's password
 
 # Easier to do system level config as root - probably should do it through
 # sudo in the future.  We use ssh keys for access, so no passwd needed

@@ -25,7 +25,7 @@ gem 'capistrano' # https://github.com/capistrano/capistrano
 
 # Bundle the extra gems:
 # gem 'bj'
-# gem 'aws-s3', :require => 'aws/s3'
+gem 'aws-s3', :require => 'aws/s3'
 
 # Bundle gems for the local environment. Make sure to
 # put test-only gems in this group so their generators
@@ -41,4 +41,4 @@ group :test do
   gem 'ruby-debug19'
 end
 gem "rubber" # https://github.com/wr0ngway/rubber
-# gem 'amazon-ec2' # https://github.com/grempe/amazon-ec2
+gem 'amazon-ec2' # https://github.com/grempe/amazon-ec2

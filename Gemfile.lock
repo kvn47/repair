@@ -28,8 +28,14 @@ GEM
       activemodel (= 3.0.9)
       activesupport (= 3.0.9)
     activesupport (3.0.9)
+    amazon-ec2 (0.9.17)
+      xml-simple (>= 1.0.12)
     archive-tar-minitar (0.5.2)
     arel (2.0.10)
+    aws-s3 (0.6.3)
+      builder
+      mime-types
+      xml-simple
     builder (2.1.2)
     capistrano (2.12.0)
       highline
@@ -152,11 +158,14 @@ GEM
       nokogiri (>= 1.2.0)
       rack (>= 1.0)
       rack-test (>= 0.5.3)
+    xml-simple (1.1.1)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  amazon-ec2
+  aws-s3
   capistrano
   haml-rails
   jquery-rails
