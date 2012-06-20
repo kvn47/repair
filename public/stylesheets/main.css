@@ -651,3 +651,13 @@ html
   font-size: 18px;
   text-align: center;
 }
+
+#jobs_table thead img {
+  height: 16px;
+  margin-bottom: -3px
+}
+
+#jobs_table thead a {
+  text-decoration: none;
+  color:#DDDDDD;
+}
