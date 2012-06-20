@@ -5,5 +5,9 @@
 -#    num_pages:     total number of pages
 -#    per_page:      number of items to fetch per page
 -#    remote:        data-remote
-%span.next
-  = link_to_unless current_page.last?, raw(t 'views.pagination.next'), url, :rel => 'next', :remote => remote
+
+- unless current_page.last?
+  = link_to url, {rel: 'next', remote: remote} do
+    %span.next
+      = image_tag "next.png", class: 'paginate_img'
+      -# = raw t 'views.pagination.next'

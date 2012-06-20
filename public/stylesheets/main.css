@@ -430,11 +430,24 @@ select {
 	border-width:1px;
 }
 
-.dataTables_info {
-	display:none;
+.pagination {
+  text-align: center;
+  margin: 10px 0 20px 0;
 }
 
-.dataTables_paginate span {
+.pagination a {
+  text-decoration: none;
+}
+
+.pagination span.page.current {
+  color:#000000;
+}
+
+.pagination a span.page {
+  color:#666666;
+}
+
+.pagination span {
 	padding-top: 50px;
 	margin: 5px;
     font-family: "Helvetica", Helvetica, sans-serif;
@@ -447,60 +460,60 @@ select {
         -webkit-border-radius: 3px;
     padding: 8px 19px;
 }
-   .dataTables_paginate span:before, span:after {
+   .pagination span:before, span:after {
          height: 29px;
          width: 1px;
          content: '';
          position: absolute;
          margin-top: -5px;
      }
-   .dataTables_paginate span:before { margin-right: 19px; }
-   .dataTables_paginate span:after { margin-left: 19px; }
-   .dataTables_paginate span  @-moz-document url-prefix() { span:before { margin-left: -20px; } }
-   .dataTables_paginate span  span:active:before, span:active:after { display: none; }
+   .pagination span:before { margin-right: 19px; }
+   .pagination span:after { margin-left: 19px; }
+   .pagination span  @-moz-document url-prefix() { span:before { margin-left: -20px; } }
+   .pagination span  span:active:before, span:active:after { display: none; }
 
-.dataTables_paginate span {
+.pagination span {
     color: #4A4A4A;
     text-shadow: 0 1px 0 white;
     background-color: #F1F1F1;
 
     background-image: -moz-linear-gradient(100% 100% 90deg, #E0E0E0, #F6F6F6);
         background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#F6F6F6), to(#E0E0E0));
-    border: 1px solid #B2B2B2;
-    border-top: 1px solid #C9C9C9;
-    border-bottom: 1px solid #8F8F8F;
+/*    border: 1px solid #B2B2B2;*/
+/*    border-top: 1px solid #C9C9C9;*/
+/*    border-bottom: 1px solid #8F8F8F;*/
     -webkit-box-shadow: 0 1px 0 #C0C0C0, 0 2px 0 #BFBFBF, 0 3px 0 #BBBBBB, 0 4px 0 #B0B0B0, 0 5px 5px rgba(0,0,0,0.25), inset 0 0 2px 1px rgba(255,255,255,0.9);
         -moz-box-shadow: 0 1px 0 #C0C0C0, 0 2px 0 #BFBFBF, 0 3px 0 #BBBBBB, 0 4px 0 #B0B0B0, 0 5px 5px rgba(0,0,0,0.25), inset 0 0 2px 1px rgba(255,255,255,0.9);
         box-shadow: 0 1px 0 #C0C0C0, 0 2px 0 #BFBFBF, 0 3px 0 #BBBBBB, 0 4px 0 #B0B0B0, 0 5px 5px rgba(0,0,0,0.25), inset 0 0 2px 1px rgba(255,255,255,0.9);
 }
-    .dataTables_paginate span {
+    .pagination span {
         background-image: -moz-linear-gradient(100% 100% 90deg, #8F8F8F, #C9C9C9);
             background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#C9C9C9), to(#8F8F8F));
     }
-    .dataTables_paginate span {
+    .pagination span {
         background-image: -moz-linear-gradient(100% 100% 90deg, #8F8F8F, #C9C9C9);
             background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#C9C9C9), to(#8F8F8F));
     }
-    .dataTables_paginate span {
+    .pagination span {
         -webkit-box-shadow: 0 1px 0 #C0C0C0, 0 2px 0 #BFBFBF, 0 3px 0 #BBBBBB, 0 4px 0 #B0B0B0, 0 5px 9px rgba(0,0,0,0.3), inset 0 0 2px 1px rgba(255,255,255,0.9);
             -moz-box-shadow: 0 1px 0 #C0C0C0, 0 2px 0 #BFBFBF, 0 3px 0 #BBBBBB, 0 4px 0 #B0B0B0, 0 5px 9px rgba(0,0,0,0.3), inset 0 0 2px 1px rgba(255,255,255,0.9);
             box-shadow: 0 1px 0 #C0C0C0, 0 2px 0 #BFBFBF, 0 3px 0 #BBBBBB, 0 4px 0 #B0B0B0, 0 5px 9px rgba(0,0,0,0.3), inset 0 0 2px 1px rgba(255,255,255,0.9);
         color: black;
     }
-    .dataTables_paginate span {
+    .pagination span {
         -webkit-box-shadow: 0 1px 0 #BBBBBB, 0 2px 0 #B0B0B0, 0 3px 5px rgba(0,0,0,0.25), inset 0 0 2px 1px rgba(255,255,255,0.9);
             -moz-box-shadow: 0 1px 0 #BBBBBB, 0 2px 0 #B0B0B0, 0 3px 5px rgba(0,0,0,0.25), inset 0 0 2px 1px rgba(255,255,255,0.9);
             box-shadow: 0 1px 0 #BBBBBB, 0 2px 0 #B0B0B0, 0 3px 5px rgba(0,0,0,0.25), inset 0 0 2px 1px rgba(255,255,255,0.9);
         position: relative;
         top: 2px;
     }
-    .dataTables_paginate span {
+    .pagination span {
         background-image: -moz-linear-gradient(100% 100% 90deg, #F6F6F6, #E0E0E0);
         background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#E0E0E0), to(#F6F6F6));
     }
 
 
-#jobs_table_paginate
+#jobs_pagination
 {
 	margin-top: 15px;
 	text-align: center;
@@ -513,25 +526,6 @@ select {
 	background-color:red;
 
 }*/
-
-
-/*<select size="1" name="jobs_table_length">
-  <option value="10" selected="selected">10</option>
-  <option value="25">25</option><option value="50">50</option>
-  <option value="100">100</option>
-</select>*/
-
-/*<div class="dataTables_info" id="jobs_table_info">Записи с 1 до 5 из 5 записей</div>*/
-
-/*<div class="dataTables_paginate paging_full_numbers" id="jobs_table_paginate">
-  <span class="first paginate_button paginate_button_disabled" id="jobs_table_first">Первая</span>
-  <span class="previous paginate_button paginate_button_disabled" id="jobs_table_previous">Предыдущая</span>
-  <span>
-    <span class="paginate_active">1</span>
-  </span>
-  <span class="next paginate_button paginate_button_disabled" id="jobs_table_next">Следующая</span>
-  <span class="last paginate_button paginate_button_disabled" id="jobs_table_last">Последняя</span>
-</div>*/
 
 .flash {
   display: none;
