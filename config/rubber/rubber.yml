@@ -18,7 +18,7 @@ app_user: atum
 
 # REQUIRED: Notification emails (e.g. monit) get sent to this address
 #
-admin_email: kvn124@gmail.com
+admin_email: kvn@itechdevs.com
 
 # OPTIONAL: If not set, you won't be able to access web_tools
 # server (munin stats, monit status, etc)
@@ -86,8 +86,8 @@ cloud_providers:
 
     # REQUIRED: the ami and instance type for creating instances
     # The Ubuntu images at http://alestic.com/ work well
-    # Ubuntu 10.04 Lucid  base install  32-bit  ami-7000f019
-    # Ubuntu 10.04 Lucid  base install  64-bit  ami-fa01f193
+    # Ubuntu 10.04 Lucid	base install	32-bit	ami-7000f019
+    # Ubuntu 10.04 Lucid	base install	64-bit	ami-fa01f193
     #
     # m1.small or m1.large or m1.xlarge
     image_type: m1.small
