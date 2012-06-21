@@ -13,14 +13,14 @@ ssh_options[:forward_agent] = true
 
 # Use a simple directory tree copy here to make demo easier.
 # You probably want to use your own repository for a real app
-set :scm, :none
-set :repository, "."
-set :deploy_via, :copy
+# set :scm, :none
+# set :repository, "."
+# set :deploy_via, :copy
 
-# set :deploy_via, :remote_cache
-# set :scm, "git"
-# set :repository, "git@github.com:kvn47/repair.git"
-# set :branch, 'master'
+set :deploy_via, :remote_cache
+set :scm, "git"
+set :repository, "git@github.com:kvn47/repair.git"
+set :branch, 'master'
 # set :user, "deployer"  # The server's user for deploys
 # set :scm_passphrase, "p@ssw0rd"  # The deploy user's password
 
