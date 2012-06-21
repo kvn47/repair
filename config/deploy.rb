@@ -17,7 +17,7 @@ ssh_options[:forward_agent] = true
 # set :repository, "."
 # set :deploy_via, :copy
 
-set :deploy_via, :remote_cache
+# set :deploy_via, :remote_cache
 set :scm, "git"
 set :repository, "git@github.com:kvn47/repair.git"
 set :branch, 'master'
