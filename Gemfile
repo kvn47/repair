@@ -40,5 +40,5 @@ group :test do
   gem 'webrat'
   gem 'ruby-debug19'
 end
-gem "rubber", "1.14.1" # https://github.com/wr0ngway/rubber
+gem "rubber" # https://github.com/wr0ngway/rubber
 gem 'amazon-ec2' # https://github.com/grempe/amazon-ec2
