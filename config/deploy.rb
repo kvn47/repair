@@ -6,7 +6,7 @@ on :load do
   set :application, rubber_env.app_name
   set :runner,      rubber_env.app_user
   set :deploy_to,   "/mnt/#{application}-#{RUBBER_ENV}"
-  set :copy_exclude, [".git/*", ".bundle/*", "log/*", ".rvmrc", ".project"]
+  set :copy_exclude, [".git/*", ".bundle/*", "log/*", ".rvmrc*", ".project"]
 end
 default_run_options[:pty] = true
 ssh_options[:forward_agent] = true
