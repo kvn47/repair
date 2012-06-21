@@ -6,33 +6,27 @@ on :load do
   set :application, rubber_env.app_name
   set :runner,      rubber_env.app_user
   set :deploy_to,   "/mnt/#{application}-#{RUBBER_ENV}"
-  set :copy_exclude, [".git/*", ".bundle/*", "log/*", ".rvmrc", ".project"]
+  set :copy_exclude, [".git/*", ".bundle/*", "log/*", ".rvmrc"]
 end
-default_run_options[:pty] = true
-ssh_options[:forward_agent] = true
 
 # Use a simple directory tree copy here to make demo easier.
 # You probably want to use your own repository for a real app
 # set :scm, :none
 # set :repository, "."
 # set :deploy_via, :copy
-
-set :deploy_via, :remote_cache
 set :scm, "git"
 set :repository, "git@github.com:kvn47/repair.git"
+# set :deploy_via, :remote_cache
 set :branch, 'master'
-# set :user, "deployer"  # The server's user for deploys
-# set :scm_passphrase, "p@ssw0rd"  # The deploy user's password
 
 # Easier to do system level config as root - probably should do it through
 # sudo in the future.  We use ssh keys for access, so no passwd needed
 set :user, 'root'
-# set :user, 'ubuntu'
 set :password, nil
 
 # Use sudo with user rails for cap deploy:[stop|start|restart]
 # This way exposed services (mongrel) aren't running as a privileged user
-set :use_sudo, false
+set :use_sudo, true
 
 # How many old releases should be kept around when running "cleanup" task
 set :keep_releases, 3
@@ -64,3 +58,5 @@ Dir["#{File.dirname(__FILE__)}/rubber/deploy-*.rb"].each do |deploy_file|
 end
 
 after "deploy", "deploy:cleanup"
+
+ssh_options[:forward_agent] = true
