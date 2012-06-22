@@ -6,12 +6,13 @@ class JobsController < ApplicationController
   def index
     @title = t :jobs_index_title
     
-    @jobs = Job.filter(params).order(sort_column + ' ' + sort_direction).page(params[:page]).per(params[:paginate_per])
+    filtered_jobs = Job.filter params
+    @jobs = filtered_jobs.order(sort_column + ' ' + sort_direction).page(params[:page]).per(params[:paginate_per])
     jobs_ids = (current_user.is_admin?) ? @jobs.collect{|j|j.id} : @jobs.where(master_id: current_user.id).collect{|j|j.id}
     @jobs_sum = Job.where(id: jobs_ids).sum(:price)
     @jobs_count = Job.where(id: jobs_ids).count
-    @jobs_total_sum = (current_user.is_admin?) ? Job.sum(:price) : Job.where(master_id: current_user.id).sum(:price)
-    @jobs_total_count = (current_user.is_admin?) ? Job.count : Job.where(master_id: current_user.id).count
+    @jobs_total_sum = (current_user.is_admin?) ? filtered_jobs.sum(:price) : filtered_jobs.where(master_id: current_user.id).sum(:price)
+    @jobs_total_count = (current_user.is_admin?) ? filtered_jobs.count : filtered_jobs.where(master_id: current_user.id).count
     respond_to do |format|
       format.html # index.html.erb
       format.js
