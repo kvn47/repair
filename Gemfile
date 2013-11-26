@@ -3,7 +3,7 @@ source 'http://rubygems.org'
 gem 'rails', '3.0.9'
 # gem "devise"
 # gem 'will_paginate', '3.0.pre2'
-gem "kaminari" # https://github.com/amatsuda/kaminari
+gem 'kaminari' # https://github.com/amatsuda/kaminari
 gem 'haml-rails' # https://github.com/indirect/haml-rails
 
 # Bundle edge Rails instead:
@@ -40,5 +40,5 @@ group :test do
   gem 'webrat'
   gem 'ruby-debug19'
 end
-gem "rubber", "1.14.1" # https://github.com/wr0ngway/rubber
+gem 'rubber', '1.14.1' # https://github.com/wr0ngway/rubber
 gem 'amazon-ec2' # https://github.com/grempe/amazon-ec2
