@@ -14,8 +14,7 @@
       %th= sortable 'master', t(:master_col)
       %th= sortable 'income_date', t(:date_col)
       %th= sortable 'guarantee', t(:guarantee_col)
-      %th
-      %th
+      %th{colspan: current_user.is_admin? ? 2 : 1}
   %tfoot
     %tr
       %th
@@ -29,8 +28,7 @@
       %th.master_filter
       %th.date_filter
       %th.guarantee_filter
-      %th
-      %th
+      %th{colspan: current_user.is_admin? ? 2 : 1}
   %tbody
     - @jobs.each do |job|
       %tr#jobs_table_rows
@@ -42,13 +40,14 @@
         %td.serial_col= job.serial
         %td.comment_col= job.comment
         %td.supplier_col= job.supplier
-        %td.price_col= job.price
+        %td.price_col= (current_user.admin? or job.is_undone?) ? job.price : ''
         %td.master_col= job.master.username
         %td.date_col= l(job.income_date, format: :date)
         %td.guarantee_col
           = (job.guarantee)? image_tag('/images/green_check.png') : image_tag('/images/red_x.png')
           %span.guarantee_val= (job.guarantee)? '✓' : '✕'
-        %td= link_to image_tag('edit.png'), edit_job_path(job)
+        - if current_user.is_admin?
+          %td= link_to image_tag('edit.png'), edit_job_path(job)
         %td= link_to image_tag('delete.png'), job, confirm: t(:confirmation), method: :delete
 
 - if @jobs.any?

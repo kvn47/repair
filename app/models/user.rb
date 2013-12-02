@@ -1,6 +1,6 @@
 require 'digest'
 class User < ActiveRecord::Base
-  has_many :jobs
+  has_many :jobs, foreign_key: :master_id
   attr_accessor :password
   attr_accessible :username, :admin, :password, :password_confirmation
   validates :username, :presence => true, :uniqueness => true
@@ -15,6 +15,10 @@ class User < ActiveRecord::Base
   
   def is_admin?
     admin?
+  end
+
+  def not_admin?
+    !admin?
   end
   
   def self.authenticate(username, submitted_password)

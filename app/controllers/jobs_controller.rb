@@ -6,17 +6,33 @@ class JobsController < ApplicationController
   def index
     @title = t :jobs_index_title
     
-    filtered_jobs = Job.filter params
-    @jobs = filtered_jobs.order(sort_column + ' ' + sort_direction).page(params[:page]).per(params[:paginate_per])
-    jobs_ids = (current_user.is_admin?) ? @jobs.collect{|j|j.id} : @jobs.where(master_id: current_user.id).collect{|j|j.id}
-    @jobs_sum = Job.where(id: jobs_ids).sum(:price)
-    @jobs_count = Job.where(id: jobs_ids).count
-    @jobs_total_sum = (current_user.is_admin?) ? filtered_jobs.sum(:price) : filtered_jobs.where(master_id: current_user.id).sum(:price)
-    @jobs_total_count = (current_user.is_admin?) ? filtered_jobs.count : filtered_jobs.where(master_id: current_user.id).count
+    #filtered_jobs = Job.filter params
+    #@jobs = filtered_jobs.order(sort_column + ' ' + sort_direction).page(params[:page]).per(params[:paginate_per])
+    #jobs_ids = (current_user.is_admin?) ? @jobs.collect{|j|j.id} : @jobs.where(master_id: current_user.id).collect{|j|j.id}
+    #@jobs_sum = Job.where(id: jobs_ids).sum(:price)
+    #@jobs_count = Job.where(id: jobs_ids).count
+    #@jobs_total_sum = (current_user.is_admin?) ? filtered_jobs.sum(:price) : filtered_jobs.where(master_id: current_user.id).sum(:price)
+    #@jobs_total_count = (current_user.is_admin?) ? filtered_jobs.count : filtered_jobs.where(master_id: current_user.id).count
+
+    @jobs = Job.filter params
+    if current_user.admin?
+      @jobs_total_sum = @jobs.sum :price
+      @jobs_total_count = @jobs.count
+      @jobs = @jobs.order(sort_column + ' ' + sort_direction).page(params[:page]).per(params[:paginate_per])
+      @jobs_sum = @jobs.sum :price
+      @jobs_count = @jobs.count
+    else
+      counted_jobs = @jobs.by_master(current_user).undone
+      @jobs_total_sum = counted_jobs.sum :price
+      @jobs_total_count = counted_jobs.count
+      @jobs = @jobs.order(sort_column + ' ' + sort_direction).page(params[:page]).per(params[:paginate_per])
+      counted_jobs = @jobs.by_master(current_user).undone
+      @jobs_sum = counted_jobs.sum :price
+      @jobs_count = counted_jobs.count
+    end
     respond_to do |format|
-      format.html # index.html.erb
+      format.html
       format.js
-      format.xml  { render :xml => @jobs }
     end
   end
   
@@ -25,7 +41,6 @@ class JobsController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @job }
     end
   end
 
@@ -41,8 +56,12 @@ class JobsController < ApplicationController
   end
 
   def edit
-    @title = t :editing_job
-    @job = Job.find(params[:id])
+    if current_user.is_admin?
+      @title = t :editing_job
+      @job = Job.find(params[:id])
+    else
+      render nothing: true
+    end
   end
 
   def create
@@ -56,50 +75,53 @@ class JobsController < ApplicationController
     respond_to do |format|
       if @job.save
         format.html { redirect_to(root_path, :notice => t(:job_created)) }
-        format.xml  { render :xml => @job, :status => :created, :location => @job }
       else
         @title = t :new_job
         format.html { render :action => "new" }
-        format.xml  { render :xml => @job.errors, :status => :unprocessable_entity }
       end
     end
   end
   
   def update
-    @job = Job.find(params[:id])
-    if params[:job][:model_name] != ""
-      params[:job][:model_id] = Model.create!(:name => params[:job][:model_name]).id
-    end
-
-    respond_to do |format|
-      if @job.update_attributes(params[:job])
-        format.html { redirect_to(root_path, :notice => t(:job_updated)) }
-        format.xml  { head :ok }
-      else
-        @title = t :editing_job
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @job.errors, :status => :unprocessable_entity }
+    if current_user.is_admin?
+      @job = Job.find(params[:id])
+      if params[:job][:model_name] != ""
+        params[:job][:model_id] = Model.create!(:name => params[:job][:model_name]).id
       end
+
+      respond_to do |format|
+        if @job.update_attributes(params[:job])
+          format.html { redirect_to(root_path, :notice => t(:job_updated)) }
+        else
+          @title = t :editing_job
+          format.html { render :action => "edit" }
+        end
+      end
+    else
+      render nothing: true
     end
   end
   
-  
   def save_statuses
-    params.each do |param|
-      if param[0][0..2] == 'jb_'
-        jb_id = param[0][3..-1]
-        jb_stat = param[1]
-        @job = Job.find(jb_id)
-        @job.update_attribute(:status, jb_stat)
-      end
-    end
-#    redirect_to root_path
-    respond_to do |format|
-      format.html do
-        render :update do |page|
-          page.redirect_to :action => 'index'
+    if current_user.admin?
+      params.each do |param|
+        if param[0][0..2] == 'jb_'
+          jb_id = param[0][3..-1]
+          jb_stat = param[1]
+          @job = Job.find(jb_id)
+          @job.update_attribute(:status, jb_stat)
         end
       end
+  #    redirect_to root_path
+      respond_to do |format|
+        format.html do
+          render :update do |page|
+            page.redirect_to :action => 'index'
+          end
+        end
+      end
+    else
+      render nothing: true
     end
   end
 
@@ -109,7 +131,6 @@ class JobsController < ApplicationController
     flash[:notice] = t(:job_deleted)
     respond_to do |format|
       format.html { redirect_to(jobs_url) }
-      format.xml  { head :ok }
     end
   end
   

@@ -4,8 +4,11 @@ class Job < ActiveRecord::Base
   attr_accessor :model_name
   validates :model_id, :master_id, :serial, presence: true
   scope :by_creation, order('created_at desc')
-  
-  def self.filter params
+  scope :done, where(status: true)
+  scope :undone, where(status: false)
+  scope :by_master, lambda { |user| where(master_id: user.id) }
+
+  def self.filter(params)
     date_from = (params[:filter_date_from].blank?) ? nil : params[:filter_date_from].to_datetime.beginning_of_day
     date_to = (params[:filter_date_to].blank?) ? nil : params[:filter_date_to].to_datetime.end_of_day
     status = (params[:filter_status].blank?) ? nil : params[:filter_status] == 'true'
@@ -21,5 +24,13 @@ class Job < ActiveRecord::Base
     jobs = jobs.where("#{column} LIKE ?", "%#{text}%") if column and text
     jobs
   end
-  
+
+  def is_done?
+    status
+  end
+
+  def is_undone?
+    !status
+  end
+
 end

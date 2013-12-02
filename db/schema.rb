@@ -17,7 +17,7 @@ ActiveRecord::Schema.define(:version => 20110723045524) do
     t.string   "serial"
     t.boolean  "status"
     t.text     "comment"
-    t.decimal  "price",       :precision => 10, :scale => 0
+    t.decimal  "price"
     t.integer  "master_id"
     t.datetime "income_date"
     t.string   "supplier"
