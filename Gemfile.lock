@@ -157,7 +157,6 @@ DEPENDENCIES
   amazon-ec2
   aws-s3
   capistrano
-  debugger
   debugger-linecache
   debugger-xml
   haml-rails
