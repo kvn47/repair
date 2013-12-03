@@ -19,8 +19,7 @@
     = render 'layouts/header'
     %section.round
       = yield
-    = debug params if Rails.env.development?
-  
+
   :javascript
     $(function(){
       if("#{notice}" != ''){
