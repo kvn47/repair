@@ -11,33 +11,33 @@
 /db/*.sqlite3
 
 # Ignore all logfiles and tempfiles.
-/log/*.log
-/tmp
+log/*.log
+tmp
 
 doc/
 *.swp
 *~
 .DS_Store
-/public/pictures/*
-/public/ckeditor_assets/*
+public/pictures/*
+public/ckeditor_assets/*
 .DS_Store
 .rvmrc*
 .ruby-gemset
 .ruby-version
 .project
 .sass-cache/
-/public/assets/
-/uploads
-/public/uploads
-/public/system
+public/assets/
+uploads
+public/uploads
+public/system
 .idea/*
 .powrc
 .idea/misc.xml
 .elasticbeanstalk/
 Gemfile.lock
-/config/database.yml
-/config/rubber.yml
+config/database.yml
+config/rubber.yml
 # Ignore application configuration
-/config/application.yml
-/coverage/*
-/projectFilesBackup
+config/application.yml
+coverage/*
+projectFilesBackup
