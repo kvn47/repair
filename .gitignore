@@ -36,7 +36,7 @@ public/system
 .elasticbeanstalk/
 Gemfile.lock
 config/database.yml
-./config/rubber.yml
+config/rubber.yml
 # Ignore application configuration
 config/application.yml
 coverage/*
